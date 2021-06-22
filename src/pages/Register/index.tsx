@@ -28,6 +28,7 @@ import { Button } from '../../components/Form/Button';
 import { TransactionTypeButton } from '../../components/Form/TransactionTypeButton';
 import { CategorySelectButton } from '../../components/Form/CategorySelectButton';
 import { CategorySelect } from '../CategorySelect';
+import { useAuth } from '../../hooks/auth';
 
 interface FormData {
     name: string;
@@ -42,9 +43,10 @@ const schema = Yup.object().shape({
                 .required('O valor é obrigatório')
 });
 
-const dataKey = '@gofinances:transactions';
 
 export function Register() {
+    const { user } = useAuth();
+    const dataKey = `@gofinances:transactions_user:${user.id}`;
     const navigation = useNavigation();
     const { 
         control, 
